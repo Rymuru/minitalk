@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:44 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/12 19:37:01 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/13 21:46:15 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,33 @@ int	main(int ac, char **av)
 
 /*need to check if only numbers, and min and max value*/
 
-int	check_pid(char *pid)
+long int	check_pid(char *pid)
 {
-	
+	long int	n;
+
+	n = 0;
+	if (pid[0] == '/0')
+		return (-1);
+	while (pid[n])
+	{
+		if (pid[n] < '0' || pid[n] > '9')
+			return (-1);
+		n++;
+	}
+	n = ft_atoi(pid);
+	if (n > 4194304 || n < 1)
+		return (-1);
+	return (n);
+}
+
+void	send(char c, int pid)
+{
+	while (c)
+	{
+		if (c % 2 == 0)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSER2);
+		c = c / 2;
+	}
 }

@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/13 20:13:40 by bcoenon          ###   ########.fr       */
+/*   Created: 2022/09/13 16:28:09 by bcoenon           #+#    #+#             */
+/*   Updated: 2022/09/13 16:28:18 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*je dois recuperer le pid et l'afficher*/
-/*je dois recevoir la chaine de caractere d'un client a la fois et l'afficher*/
-
-#include <sys/types.h>
-#include <unistd.h>
-
-int	main(void)
+long int	ft_atoi(char *str)
 {
-	int	pid;
+	long int	i;
+	long int	num;
+	long int	sign;
 
-	pid = getpid();
-	ft_printf("%d\n", pid);
+	i = 0;
+	num = 0;
+	sign = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+	{
+		i++;
+	}
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+		{
+			sign *= -1;
+		}
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		num = num * 10 + str[i] - '0';
+		i++;
+	}
+	return (num * sign);
 }
-
-/*un signal = un bit*/
-/*donc il va falloir reconstituer les caracteres a l'arrivee*/
