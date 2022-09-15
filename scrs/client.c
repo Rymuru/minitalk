@@ -6,9 +6,11 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:44 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/13 21:46:15 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/15 17:05:36 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minitalk.h"
 
 /*je dois prendre en entree le PID du serveur et la chaine de caracteres*/
 /*je dois envoyer la chaine de cracteres au serveur*/
@@ -26,7 +28,7 @@ int	main(int ac, char **av)
 
 /*need to check if only numbers, and min and max value*/
 
-long int	check_pid(char *pid)
+static long int	check_pid(char *pid)
 {
 	long int	n;
 
@@ -45,7 +47,7 @@ long int	check_pid(char *pid)
 	return (n);
 }
 
-void	send(char c, int pid)
+static void	send(char c, int pid)
 {
 	while (c)
 	{

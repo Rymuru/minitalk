@@ -6,11 +6,13 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:28:09 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/13 16:28:18 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/15 17:05:22 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long int	ft_atoi(char *str)
+#include "minitalk.h"
+
+static long int	ft_atoi(char *str)
 {
 	long int	i;
 	long int	num;

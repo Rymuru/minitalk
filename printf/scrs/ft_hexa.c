@@ -1,25 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_hexa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 13:15:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/15 17:04:17 by bcoenon          ###   ########.fr       */
+/*   Created: 2021/11/17 19:48:47 by bcoenon           #+#    #+#             */
+/*   Updated: 2021/11/24 10:35:26 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "ft_printf.h"
 
-# include "ft_printf.h"
-# include <signal.h>
-# include <sys/types.h>
-# include <unistd.h>
+static int	ft_statushexa(unsigned int n)
+{
+	int	total;
 
-# define MIX_PID 4194304
+	total = 0;
+	if (n == 0)
+		total = 1;
+	while (n > 0)
+	{
+		total++;
+		n = n / 16;
+	}
+	return (total);
+}
 
-# define DELAY 15
+int	ft_hexa(unsigned int n)
+{
+	char	*stock;
 
-#endif
+	stock = "0123456789abcdef";
+	if (n < 16)
+		ft_putchar(stock[n]);
+	else
+	{
+		ft_hexa(n / 16);
+		ft_hexa(n % 16);
+	}
+	return (ft_statushexa(n));
+}

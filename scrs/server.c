@@ -6,15 +6,14 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/13 20:13:40 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/15 17:05:50 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*je dois recuperer le pid et l'afficher*/
 /*je dois recevoir la chaine de caractere d'un client a la fois et l'afficher*/
 
-#include <sys/types.h>
-#include <unistd.h>
+#include "minitalk.h"
 
 int	main(void)
 {

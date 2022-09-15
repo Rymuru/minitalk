@@ -1,25 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putunsigned.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 13:15:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/15 17:04:17 by bcoenon          ###   ########.fr       */
+/*   Created: 2021/11/18 18:33:17 by bcoenon           #+#    #+#             */
+/*   Updated: 2021/11/24 11:53:27 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "ft_printf.h"
 
-# include "ft_printf.h"
-# include <signal.h>
-# include <sys/types.h>
-# include <unistd.h>
+static int	ft_status(unsigned int n)
+{
+	int	total;
 
-# define MIX_PID 4194304
+	total = 0;
+	if (n == 0)
+	{
+		return (1);
+	}
+	while (n > 0)
+	{
+		total++;
+		n = n / 10;
+	}
+	return (total);
+}
 
-# define DELAY 15
-
-#endif
+int	ft_putunsigned(unsigned int n)
+{
+	if (n <= 9)
+		ft_putchar(n + '0');
+	else if (n > 9)
+	{
+		ft_putunsigned(n / 10);
+		ft_putunsigned(n % 10);
+	}
+	return (ft_status(n));
+}
