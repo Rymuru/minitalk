@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:44 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/15 17:05:36 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/15 17:25:58 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,23 @@
 
 int	main(int ac, char **av)
 {
+	sigset_t	sos;
+	int			pid;
+	int			i;
+
+	i = 0;
 	if (ac != 3)
 		return (1);
-	if (check_pid(av[1] != 0))
+	pid = check_pid(av[1]);
+	if (pid <= 0)
 		return (1);
+	sigemptyset(&sos);
+	sigaddset(&sos, SIGUSR2);
+	while (av[2][i])
+	{
+		send(av[2][i], pid);
+		i++;
+	}
 }
 
 /*need to check if only numbers, and min and max value*/
