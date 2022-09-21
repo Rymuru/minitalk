@@ -6,12 +6,15 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:15:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/15 17:04:17 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/21 17:39:01 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
 # define MINITALK_H
+
+# define _POSIX_C_SOURCE 1
+# define _XOPEN_SOURCE 500
 
 # include "ft_printf.h"
 # include <signal.h>

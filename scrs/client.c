@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:44 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/15 17:25:58 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/21 19:12:58 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,16 @@ static long int	check_pid(char *pid)
 
 static void	send(char c, int pid)
 {
-	while (c)
+	int	i;
+
+	i = 0;
+	while (i < 8)
 	{
-		if (c % 2 == 0)
-			kill(pid, SIGUSR1);
+		if (c % 2 == 1)
+			kill(pid, SIGUSR2);
 		else
-			kill(pid, SIGUSER2);
+			kill(pid, SIGUSR1);
 		c = c / 2;
+		++i;
 	}
 }
