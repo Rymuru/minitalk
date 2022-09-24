@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:44 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/21 19:12:58 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/23 20:52:14 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 
 int	main(int ac, char **av)
 {
-	sigset_t	sos;
-	int			pid;
-	int			i;
+	struct sigaction	type;
+	sigset_t			sos;
+	int					pid;
+	int					i;
 
 	i = 0;
 	if (ac != 3)
@@ -32,6 +33,7 @@ int	main(int ac, char **av)
 		return (1);
 	sigemptyset(&sos);
 	sigaddset(&sos, SIGUSR2);
+	type.sa_flags = SA_SIGINFO;
 	while (av[2][i])
 	{
 		send(av[2][i], pid);
