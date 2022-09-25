@@ -1,35 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 13:15:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/25 18:42:55 by bcoenon          ###   ########.fr       */
+/*   Created: 2022/09/13 16:28:09 by bcoenon           #+#    #+#             */
+/*   Updated: 2022/09/15 17:05:22 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk.h"
 
-# define _POSIX_C_SOURCE 1
-# define _XOPEN_SOURCE 500
+static long int	ft_atoi(char *str)
+{
+	long int	i;
+	long int	num;
+	long int	sign;
 
-# include "ft_printf.h"
-# include <signal.h>
-# include <sys/types.h>
-# include <unistd.h>
-
-# define MIX_PID 4194304
-
-# define DELAY 15
-
-//SERVER
-int		main(void);
-char	*assembly(void);
-char	reconstruct(int signo);
-//CLIENT
-int		main(int ac, char **av);
-
-#endif
+	i = 0;
+	num = 0;
+	sign = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+	{
+		i++;
+	}
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+		{
+			sign *= -1;
+		}
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		num = num * 10 + str[i] - '0';
+		i++;
+	}
+	return (num * sign);
+}
