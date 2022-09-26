@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/23 20:52:15 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/26 18:41:11 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	main(void)
 
 	pid = getpid();
 	ft_printf("%d\n", pid);
+	while (1)
+		assembly();
 }
 
 /*un signal = un bit*/
@@ -32,7 +34,7 @@ char	*assembly(void)
 	char	*line;
 
 	i = 0;
-	*line = malloc(1000 * (sizeof(char)));
+	line = malloc(1000 * (sizeof(char)));
 	while (signal)
 	{
 		line[i] = reconstruct(signal);
@@ -53,6 +55,7 @@ char	reconstruct(int signo)
 		c = c * 2;
 		if (signo == SIGUSR2)
 			c = c + 1;
+		i++;
 	}
 	return (c);
 }
