@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   server_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 13:15:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/28 19:09:34 by bcoenon          ###   ########.fr       */
+/*   Created: 2022/09/28 15:38:45 by bcoenon           #+#    #+#             */
+/*   Updated: 2022/09/28 19:12:46 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk.h"
 
-# define _POSIX_C_SOURCE 1
-# define _XOPEN_SOURCE 500
+static size_t	ft_strlen(const char *s)
+{
+	unsigned int	i;
 
-# include "ft_printf.h"
-# include <signal.h>
-# include <sys/types.h>
-# include <unistd.h>
+	i = 0;
+	while (s[i] != 0)
+	{
+		i++;
+	}
+	return (i);
+}
 
-# define MIX_PID 4194304
+static size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+{
+	size_t	i;
 
-# define DELAY 15
-
-int	sig_handler(int n, char *line);
-
-#endif
+	i = 0;
+	if (!dest || !src)
+		return (0);
+	while (i + 1 < size && src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	if (size > 0)
+		dest[i] = '\0';
+	return (ft_strlen((char *)src));
+}

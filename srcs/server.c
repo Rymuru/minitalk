@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/26 18:41:11 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/28 19:22:44 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,47 @@
 
 #include "minitalk.h"
 
-int	main(void)
+static int	main(void)
 {
-	int	pid;
+	int		pid;
+	char	*line;
 
 	pid = getpid();
 	ft_printf("%d\n", pid);
+	line = malloc(1000 * (sizeof(char)));
+	line[999] = '\0';
+	signal(SIGUSR1, sig_handler(0, line));
+	signal(SIGUSR2, sig_handler(1, line));
 	while (1)
-		assembly();
+		pause();
+	return (0);
 }
 
 /*un signal = un bit*/
 /*donc il va falloir reconstituer les caracteres a l'arrivee*/
 
-char	*assembly(void)
+int	sig_handler(int n, char *line)
 {
 	int		i;
-	char	*line;
+	char	c;
 
 	i = 0;
-	line = malloc(1000 * (sizeof(char)));
-	while (signal)
-	{
-		line[i] = reconstruct(signal);
-		++i;
-	}
-	return (line);
+	if (ft_strlen(line + 1) == '\0')
+		line = biggerline(line);
+	c = reconstruct(n);
 }
 
-char	reconstruct(int signo)
+static char	*biggerline(char *line)
+{
+	int		i;
+	char	*bigline;
+
+	i = ft_strlen(line) + 1000;
+	bigline = malloc(i * sizeof(char));
+	ft_strlcpy(bigline, line, i - 1000);
+}
+
+static char	reconstruct(int signo)
 {
 	int		i;
 	char	c;
