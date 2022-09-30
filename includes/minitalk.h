@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:15:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/28 19:09:34 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/30 20:38:13 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,16 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <unistd.h>
+# include <stdlib.h>
 
 # define MIX_PID 4194304
 
 # define DELAY 15
 
-int	sig_handler(int n, char *line);
+/*SERVER*/
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+void	*handler(int n, int *i, char *line, int *char_size);
+char	*biggerline(char *line);
+char	reconstruct(int signo, char c);
 
 #endif

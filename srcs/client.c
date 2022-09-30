@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:44 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/28 18:16:28 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/30 20:22:08 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /* 1: verification de la validite du pid*/
 /* 2: verification de la validite de la chaine*/
 
-static int	main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	struct sigaction	type;
 	sigset_t			sos;

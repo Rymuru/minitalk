@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/28 19:22:44 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/30 20:38:58 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,21 @@
 
 #include "minitalk.h"
 
-static int	main(void)
+int	main(void)
 {
+	int		i;
 	int		pid;
+	int		char_size;
 	char	*line;
 
+	i = 0;
 	pid = getpid();
+	char_size = 0;
 	ft_printf("%d\n", pid);
 	line = malloc(1000 * (sizeof(char)));
 	line[999] = '\0';
-	signal(SIGUSR1, sig_handler(0, line));
-	signal(SIGUSR2, sig_handler(1, line));
+	signal(SIGUSR1, handler(0, &i, line, &char_size));
+	signal(SIGUSR2, handler(1, &i, line, &char_size));
 	while (1)
 		pause();
 	return (0);
@@ -34,40 +38,36 @@ static int	main(void)
 /*un signal = un bit*/
 /*donc il va falloir reconstituer les caracteres a l'arrivee*/
 
-int	sig_handler(int n, char *line)
+void	*handler(int n, int *i, char *line, int *char_size)
 {
-	int		i;
-	char	c;
-
-	i = 0;
 	if (ft_strlen(line + 1) == '\0')
 		line = biggerline(line);
-	c = reconstruct(n);
+	line[*i] = reconstruct(n, line[*i]);
+	*char_size++;
+	if (*char_size == 8)
+	{
+		*i++;
+		*char_size = 0;
+	}
+	return (0);
 }
 
-static char	*biggerline(char *line)
+char	*biggerline(char *line)
 {
 	int		i;
 	char	*bigline;
 
 	i = ft_strlen(line) + 1000;
 	bigline = malloc(i * sizeof(char));
-	ft_strlcpy(bigline, line, i - 1000);
+	ft_strlcpy(bigline, line, i);
+	free (line);
+	return (bigline);
 }
 
-static char	reconstruct(int signo)
+char	reconstruct(int signo, char c)
 {
-	int		i;
-	char	c;
-
-	i = 0;
-	c = 0;
-	while (i < 8)
-	{
-		c = c * 2;
-		if (signo == SIGUSR2)
-			c = c + 1;
-		i++;
-	}
+	c = c * 2;
+	if (signo == SIGUSR2)
+		c = c + 1;
 	return (c);
 }

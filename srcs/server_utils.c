@@ -6,13 +6,13 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 15:38:45 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/28 19:12:46 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/09/30 20:35:51 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static size_t	ft_strlen(const char *s)
+/*size_t	ft_strlen(const char *s)
 {
 	unsigned int	i;
 
@@ -22,9 +22,9 @@ static size_t	ft_strlen(const char *s)
 		i++;
 	}
 	return (i);
-}
+}*/
 
-static size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	i;
 
