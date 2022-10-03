@@ -2,11 +2,11 @@
 
 SRCS_1	=	\
 			server.c	\
-			utils.c
+			servers_utils.c
 
 SRCS_2	=	\
 			client.c	\
-			utils.c
+			client_utils.c
 
 SRCSD	= srcs/
 
@@ -16,7 +16,6 @@ OBJS_2	= ${addprefix ${SRCSD}, ${SRCS_2:.c=.o}}
 
 # *======== INCLUDES ========*
 
-INCLUDES_DIR = -I ./includes
 INC = -I ./includes
 INCPRINTF = -I ./printf/scrs
 

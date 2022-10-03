@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/30 20:38:58 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/03 16:33:02 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,16 @@ void	*handler(int n, int *i, char *line, int *char_size)
 	if (ft_strlen(line + 1) == '\0')
 		line = biggerline(line);
 	line[*i] = reconstruct(n, line[*i]);
-	*char_size++;
-	if (*char_size == 8)
+	(*char_size)++;
+	if (*char_size == 7)
 	{
-		*i++;
+		if (line[*i] == '\0')
+		{
+			ft_printf(line);
+			free(line);
+			return (0);
+		}
+		(*i)++;
 		*char_size = 0;
 	}
 	return (0);
@@ -67,7 +73,6 @@ char	*biggerline(char *line)
 char	reconstruct(int signo, char c)
 {
 	c = c * 2;
-	if (signo == SIGUSR2)
-		c = c + 1;
+	c = c + signo;
 	return (c);
 }
