@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:44 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/30 20:22:08 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/03 19:45:46 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **av)
 {
 	struct sigaction	type;
 	sigset_t			sos;
-	int					pid;
+	long int			pid;
 	int					i;
 
 	i = 0;
@@ -43,12 +43,12 @@ int	main(int ac, char **av)
 
 /*need to check if only numbers, and min and max value*/
 
-static long int	check_pid(char *pid)
+long int	check_pid(char *pid)
 {
 	long int	n;
 
 	n = 0;
-	if (pid[0] == '/0')
+	if (pid[0] == '\0')
 		return (-1);
 	while (pid[n])
 	{
@@ -62,7 +62,7 @@ static long int	check_pid(char *pid)
 	return (n);
 }
 
-static void	send(char c, int pid)
+void	send(char c, int pid)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:15:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/30 20:38:13 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/03 19:12:06 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,14 @@
 # define DELAY 15
 
 /*SERVER*/
-size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-void	*handler(int n, int *i, char *line, int *char_size);
-char	*biggerline(char *line);
-char	reconstruct(int signo, char c);
+size_t		ft_strlcpy(char *dest, const char *src, size_t size);
+void		*handler(int n, int *i, char *line, int *char_size);
+char		*biggerline(char *line);
+char		reconstruct(int signo, char c);
+
+/*CLIENT*/
+long int	ft_atoi(char *str);
+long int	check_pid(char *pid);
+void		send(char c, int pid);
 
 #endif

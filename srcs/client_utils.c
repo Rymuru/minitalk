@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   client_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:28:09 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/09/15 17:05:22 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/03 19:11:55 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static long int	ft_atoi(char *str)
+long int	ft_atoi(char *str)
 {
 	long int	i;
 	long int	num;

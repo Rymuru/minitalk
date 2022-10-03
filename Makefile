@@ -2,11 +2,13 @@
 
 SRCS_1	=	\
 			server.c	\
-			servers_utils.c
+			server_utils.c\
+
 
 SRCS_2	=	\
 			client.c	\
-			client_utils.c
+			client_utils.c\
+
 
 SRCSD	= srcs/
 
@@ -22,7 +24,7 @@ INCPRINTF = -I ./printf/scrs
 # *======== LIBS ========*
 
 PRINTF_DIR = ./printf
-PRINTF_FLAGS = -L$(PRINTF_DIR) -libftprintf
+PRINTF_FLAGS = -L$(PRINTF_DIR) -l ftprintf
 
 # *======== OTHERS ========*
 
