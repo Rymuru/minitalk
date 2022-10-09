@@ -55,9 +55,11 @@ ${NAME_2}:	${OBJS_2}
 
 clean:
 			${RM} ${OBJS_1} ${OBJS_2}
+					make clean -C ${PRINTF_DIR}
 
 fclean:		clean
 			${RM} ${NAME_1} ${NAME_2}
+					make fclean -C ${PRINTF_DIR}
 
 re:			fclean all
 

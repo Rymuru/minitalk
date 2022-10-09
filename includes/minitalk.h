@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:15:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/03 19:12:06 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/09 03:08:29 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 /*SERVER*/
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
-void		*handler(int n, int *i, char *line, int *char_size);
+void		ft_handler(int signo);
 char		*biggerline(char *line);
 char		reconstruct(int signo, char c);
 
