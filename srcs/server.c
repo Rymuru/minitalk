@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/03 16:33:02 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/09 06:44:30 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,15 @@
 
 int	main(void)
 {
-	int		i;
-	int		pid;
-	int		char_size;
-	char	*line;
+	struct sigaction	sa;
+	int					pid;
 
-	i = 0;
+	sa.sa_handler = ft_handler;
+	sa.sa_flags = 0;
 	pid = getpid();
-	char_size = 0;
 	ft_printf("%d\n", pid);
-	line = malloc(1000 * (sizeof(char)));
-	line[999] = '\0';
-	signal(SIGUSR1, handler(0, &i, line, &char_size));
-	signal(SIGUSR2, handler(1, &i, line, &char_size));
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
 	return (0);
@@ -38,24 +34,30 @@ int	main(void)
 /*un signal = un bit*/
 /*donc il va falloir reconstituer les caracteres a l'arrivee*/
 
-void	*handler(int n, int *i, char *line, int *char_size)
+void	ft_handler(int signo)
 {
+	static int			i;
+	static int			char_size;
+	static char			*line;
+
+	i = 0;
+	char_size = 0;
+	if (i == 0 && char_size == 0)
+		line = malloc(1000 * (sizeof(char)));
 	if (ft_strlen(line + 1) == '\0')
 		line = biggerline(line);
-	line[*i] = reconstruct(n, line[*i]);
-	(*char_size)++;
-	if (*char_size == 7)
+	line[i] = reconstruct(signo, line[i]);
+	char_size++;
+	if (char_size == 7)
 	{
-		if (line[*i] == '\0')
+		if (line[i] == '\0')
 		{
 			ft_printf(line);
 			free(line);
-			return (0);
 		}
-		(*i)++;
-		*char_size = 0;
+		i++;
+		char_size = 0;
 	}
-	return (0);
 }
 
 char	*biggerline(char *line)
@@ -72,7 +74,13 @@ char	*biggerline(char *line)
 
 char	reconstruct(int signo, char c)
 {
+	int	new;
+
+	if (signo == SIGUSR2)
+		new = 1;
+	else
+		new = 0;
 	c = c * 2;
-	c = c + signo;
+	c = c + new;
 	return (c);
 }
