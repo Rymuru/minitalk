@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:44 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/09 19:39:46 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/09 21:46:04 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void	send(char c, int pid)
 			kill(pid, SIGUSR1);
 		c = c / 2;
 		++i;
+		sleep(1);
 	}
 }

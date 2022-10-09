@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:15:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/09 03:08:29 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/09 21:45:21 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 # include <stdlib.h>
 
 # define MIX_PID 4194304
-
-# define DELAY 15
 
 /*SERVER*/
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);

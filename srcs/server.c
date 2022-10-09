@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/09 06:44:30 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/09 21:49:00 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@ int	main(void)
 {
 	struct sigaction	sa;
 	int					pid;
+	sigset_t			blocked;
 
+	sigemptyset(&blocked);
+	sigaddset(&blocked, SIGUSR2);
+	sigaddset(&blocked, SIGUSR1);
 	sa.sa_handler = ft_handler;
 	sa.sa_flags = 0;
+	sa.sa_mask = blocked;
 	pid = getpid();
 	ft_printf("%d\n", pid);
 	sigaction(SIGUSR1, &sa, NULL);
@@ -36,19 +41,22 @@ int	main(void)
 
 void	ft_handler(int signo)
 {
-	static int			i;
-	static int			char_size;
+	static int			i = 0;
+	static int			char_size = 0;
 	static char			*line;
 
-	i = 0;
-	char_size = 0;
 	if (i == 0 && char_size == 0)
 		line = malloc(1000 * (sizeof(char)));
-	if (ft_strlen(line + 1) == '\0')
-		line = biggerline(line);
-	line[i] = reconstruct(signo, line[i]);
+	/*if (ft_strlen(line + 1) == '\0')*/
+	/*	line = biggerline(line);*/
+	if (signo == SIGUSR2)
+		line[i] = reconstruct(1, line[i]);
+	else
+		line[i] = reconstruct(0, line[i]);
 	char_size++;
-	if (char_size == 7)
+	/*ft_printf("%d\n", i);*/
+	/*ft_printf("%d\n", char_size);*/
+	if (char_size == 8)
 	{
 		if (line[i] == '\0')
 		{
@@ -72,15 +80,9 @@ char	*biggerline(char *line)
 	return (bigline);
 }
 
-char	reconstruct(int signo, char c)
+char	reconstruct(int i, char c)
 {
-	int	new;
-
-	if (signo == SIGUSR2)
-		new = 1;
-	else
-		new = 0;
-	c = c * 2;
-	c = c + new;
+	c = c << 1;
+	c = c + i;
 	return (c);
 }
