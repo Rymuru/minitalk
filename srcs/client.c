@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:44 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/09 21:46:04 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/10 18:41:45 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,17 @@ int	main(int ac, char **av)
 
 	i = 0;
 	if (ac != 3)
+	{
+		write(2, "usage: ./client <pid> <string to send>\n", 39);
 		return (1);
+	}
 	pid = check_pid(av[1]);
 	if (pid <= 0)
+	{
+		write(2, "usage: ./client <pid> <string to send>\n", 39);
 		return (1);
+	}
+	send_len(ft_strlen(av[2]), pid);
 	while (av[2][i])
 	{
 		send(av[2][i], pid);
@@ -71,6 +78,23 @@ void	send(char c, int pid)
 			kill(pid, SIGUSR1);
 		c = c / 2;
 		++i;
-		sleep(1);
+		usleep(TIME);
+	}
+}
+
+void	send_len(int len, int pid)
+{
+	int	i;
+
+	i = 0;
+	while (i < 32)
+	{
+		if (len % 2 == 1)
+			kill(pid, SIGUSR2);
+		else
+			kill(pid, SIGUSR1);
+		len = len / 2;
+		++i;
+		usleep(TIME);
 	}
 }

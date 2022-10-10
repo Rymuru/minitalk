@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/09 21:49:00 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/10 19:24:42 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,45 @@ int	main(void)
 
 void	ft_handler(int signo)
 {
-	static int			i = 0;
-	static int			char_size = 0;
-	static char			*line;
+	static int		char_size = 0;
+	static int		i = 0;
+	static int		n = 0;
+	static char		c = 0;
+	static char		*line;
 
-	if (i == 0 && char_size == 0)
-		line = malloc(1000 * (sizeof(char)));
-	/*if (ft_strlen(line + 1) == '\0')*/
-	/*	line = biggerline(line);*/
-	if (signo == SIGUSR2)
-		line[i] = reconstruct(1, line[i]);
-	else
-		line[i] = reconstruct(0, line[i]);
-	char_size++;
-	/*ft_printf("%d\n", i);*/
-	/*ft_printf("%d\n", char_size);*/
-	if (char_size == 8)
+	if (i == 0)
 	{
-		if (line[i] == '\0')
+		if (signo == SIGUSR2)
+			n = find_len(n, char_size);
+		char_size++;
+		if (char_size == 32)
 		{
-			ft_printf(line);
-			free(line);
+			line = malloc(n * sizeof(char));
+			i++;
+			char_size = 0;
 		}
-		i++;
-		char_size = 0;
+	}
+	else
+	{
+		if (signo == SIGUSR2)
+			c = reconstruct(c, char_size);
+		char_size++;
+		if (char_size == 8)
+		{
+			line[i - 1] = c;
+			c = 0;
+			if (line[i - 1] == '\0')
+			{
+				ft_printf("%s\n", line);
+				i = 0;
+				free(line);
+			}
+			else
+			{
+				i++;
+			}
+			char_size = 0;
+		}
 	}
 }
 
@@ -80,9 +95,14 @@ char	*biggerline(char *line)
 	return (bigline);
 }
 
-char	reconstruct(int i, char c)
+char	reconstruct(char c, int char_size)
 {
-	c = c << 1;
-	c = c + i;
+	c |= 1 << char_size;
 	return (c);
+}
+
+int	find_len(int n, int char_size)
+{
+	n |= 1 << char_size;
+	return (n);
 }

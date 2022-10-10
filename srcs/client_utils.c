@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:28:09 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/03 19:11:55 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/10 18:42:21 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,14 @@ long int	ft_atoi(char *str)
 		i++;
 	}
 	return (num * sign);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+		i++;
+	return (i);
 }
