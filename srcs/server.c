@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/10 19:24:42 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/12 02:23:54 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(void)
 	sigaddset(&blocked, SIGUSR2);
 	sigaddset(&blocked, SIGUSR1);
 	sa.sa_handler = ft_handler;
-	sa.sa_flags = 0;
+	sa.sa_flags = SA_SIGINFO;
 	sa.sa_mask = blocked;
 	pid = getpid();
 	ft_printf("%d\n", pid);
@@ -66,6 +66,7 @@ void	ft_handler(int signo)
 		char_size++;
 		if (char_size == 8)
 		{
+			//endchar(line, &c, &i, &char_size);
 			line[i - 1] = c;
 			c = 0;
 			if (line[i - 1] == '\0')
@@ -95,14 +96,20 @@ char	*biggerline(char *line)
 	return (bigline);
 }
 
-char	reconstruct(char c, int char_size)
+/*int	endchar(char *line, char *c, int *i, int *char_size)
 {
-	c |= 1 << char_size;
-	return (c);
-}
-
-int	find_len(int n, int char_size)
-{
-	n |= 1 << char_size;
-	return (n);
-}
+	line[*(i) - 1] = *(c);
+	*(c) = 0;
+	if (line[*(i) - 1] == '\0')
+	{
+		ft_printf("%s\n", line);
+		*(i) = 0;
+		free(line);
+	}
+	else
+	{
+		*(i)++;
+	}
+	*(char_size) = 0;
+	return (0);
+}*/

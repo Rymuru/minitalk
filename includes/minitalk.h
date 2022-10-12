@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:15:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/10 19:25:51 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/12 02:24:05 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void		ft_handler(int signo);
 char		*biggerline(char *line);
 char		reconstruct(char c, int char_size);
 int			find_len(int n, int char_size);
+/*int			endchar(char *line, char *c, int *i, int *char_size);*/
 
 /*CLIENT*/
 long int	ft_atoi(char *str);

@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 15:38:45 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/09 20:33:17 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/12 02:05:07 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,16 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	if (size > 0)
 		dest[i] = '\0';
 	return (ft_strlen((char *)src));
+}
+
+char	reconstruct(char c, int char_size)
+{
+	c |= 1 << char_size;
+	return (c);
+}
+
+int	find_len(int n, int char_size)
+{
+	n |= 1 << char_size;
+	return (n);
 }
