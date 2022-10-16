@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:44 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/16 00:56:36 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/16 04:10:30 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ long int	check_pid(char *pid)
 	return (n);
 }
 
+/*cette fonction separe les char en signaux et les envois*/
+
 void	send(char c, int pid)
 {
 	int	i;
@@ -81,6 +83,8 @@ void	send(char c, int pid)
 		usleep(TIME);
 	}
 }
+
+/*cette fonction envoie la longueur de la chaine au serveur*/
 
 void	send_len(int len, int pid)
 {
