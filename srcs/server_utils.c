@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 15:38:45 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/12 02:05:07 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/15 23:23:17 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	reconstruct(char c, int char_size)
 	return (c);
 }
 
-int	find_len(int n, int char_size)
+int	add_len(int n, int char_size)
 {
 	n |= 1 << char_size;
 	return (n);

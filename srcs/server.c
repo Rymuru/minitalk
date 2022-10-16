@@ -6,12 +6,11 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/12 02:23:54 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/16 03:50:49 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*je dois recuperer le pid et l'afficher*/
-/*je dois recevoir la chaine de caractere d'un client a la fois et l'afficher*/
+/*le main recupere et affiche le pid puis fait appel au handler*/
 
 #include "minitalk.h"
 
@@ -36,28 +35,23 @@ int	main(void)
 	return (0);
 }
 
-/*un signal = un bit*/
-/*donc il va falloir reconstituer les caracteres a l'arrivee*/
+/*cette fonction prends en charge les signaux*/
+/*elle fait usage de beaucoup de statiques*/
+/*car toutes ces valeurs doivent etre conservees entre deux signaux*/
 
 void	ft_handler(int signo)
 {
 	static int		char_size = 0;
+	static int		len = 0;
 	static int		i = 0;
-	static int		n = 0;
 	static char		c = 0;
 	static char		*line;
 
 	if (i == 0)
 	{
 		if (signo == SIGUSR2)
-			n = find_len(n, char_size);
-		char_size++;
-		if (char_size == 32)
-		{
-			line = malloc(n * sizeof(char));
-			i++;
-			char_size = 0;
-		}
+			len = add_len(len, char_size);
+		find_len(&i, &len, &char_size, &line);
 	}
 	else
 	{
@@ -66,50 +60,53 @@ void	ft_handler(int signo)
 		char_size++;
 		if (char_size == 8)
 		{
-			//endchar(line, &c, &i, &char_size);
-			line[i - 1] = c;
-			c = 0;
-			if (line[i - 1] == '\0')
-			{
-				ft_printf("%s\n", line);
-				i = 0;
-				free(line);
-			}
-			else
-			{
-				i++;
-			}
+			endchar(line, &c, &i, &len);
 			char_size = 0;
 		}
 	}
 }
 
-char	*biggerline(char *line)
-{
-	int		i;
-	char	*bigline;
+/*cette fonction determine que faire une fois un char reconstitue*/
 
-	i = ft_strlen(line) + 1000;
-	bigline = malloc(i * sizeof(char));
-	ft_strlcpy(bigline, line, i);
-	free (line);
-	return (bigline);
-}
-
-/*int	endchar(char *line, char *c, int *i, int *char_size)
+int	endchar(char *line, char *c, int *i, int *len)
 {
-	line[*(i) - 1] = *(c);
-	*(c) = 0;
-	if (line[*(i) - 1] == '\0')
+	line[(*i) - 1] = (*c);
+	(*c) = 0;
+	if (line[(*i) - 1] == '\0' || (*i) - 1 == *len)
 	{
-		ft_printf("%s\n", line);
-		*(i) = 0;
+		if (line[(*i) - 1] == '\0' && (*i) - 1 == *len)
+			ft_printf("%s\n", line);
+		else
+			write(2, "error\n", 6);
+		(*i) = 0;
+		(*len) = 0;
 		free(line);
 	}
 	else
 	{
-		*(i)++;
+		(*i)++;
 	}
-	*(char_size) = 0;
 	return (0);
-}*/
+}
+
+/*cette fonction permet de determiner la longueur de la string transmise*/
+/*et ainsi de malloc la longueur correspondante*/
+
+int	find_len(int *i, int *len, int *char_size, char **line)
+{
+	(*char_size)++;
+	if (*char_size == 32)
+	{
+		*line = malloc((*len) * sizeof(char));
+		if (!*line)
+		{
+			(*char_size) = 0;
+			(*len) = 0;
+			write(2, "error\n", 6);
+			return (1);
+		}
+		(*i)++;
+		(*char_size) = 0;
+	}
+	return (0);
+}
