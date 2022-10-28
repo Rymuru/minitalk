@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/16 03:50:49 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/28 18:19:12 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ int	main(void)
 	ft_printf("%d\n", pid);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
+	if (sigaction(SIGUSR1, &sa, NULL) == -1
+		|| sigaction(SIGUSR2, &sa, NULL) == -1)
+	{
+		write(2, "Error.\n", 7);
+		return (42);
+	}
 	while (1)
 		pause();
 	return (0);
@@ -66,29 +72,6 @@ void	ft_handler(int signo)
 	}
 }
 
-/*cette fonction determine que faire une fois un char reconstitue*/
-
-int	endchar(char *line, char *c, int *i, int *len)
-{
-	line[(*i) - 1] = (*c);
-	(*c) = 0;
-	if (line[(*i) - 1] == '\0' || (*i) - 1 == *len)
-	{
-		if (line[(*i) - 1] == '\0' && (*i) - 1 == *len)
-			ft_printf("%s\n", line);
-		else
-			write(2, "error\n", 6);
-		(*i) = 0;
-		(*len) = 0;
-		free(line);
-	}
-	else
-	{
-		(*i)++;
-	}
-	return (0);
-}
-
 /*cette fonction permet de determiner la longueur de la string transmise*/
 /*et ainsi de malloc la longueur correspondante*/
 
@@ -97,16 +80,45 @@ int	find_len(int *i, int *len, int *char_size, char **line)
 	(*char_size)++;
 	if (*char_size == 32)
 	{
-		*line = malloc((*len) * sizeof(char));
+		if ((*len) > 0)
+			*line = malloc(((*len) + 1) * sizeof(char));
 		if (!*line)
 		{
-			(*char_size) = 0;
+			(*char_size) = 8;
 			(*len) = 0;
-			write(2, "error\n", 6);
 			return (1);
 		}
+		else
+			(*char_size) = 0;
 		(*i)++;
-		(*char_size) = 0;
+	}
+	return (0);
+}
+
+/*cette fonction determine que faire une fois un char reconstitue*/
+
+int	endchar(char *line, char *c, int *i, int *len)
+{
+	if (ft_isprint(*c) == 0)
+		(*i) = (*len) + 1;
+	line[(*i) - 1] = (*c);
+	(*c) = 0;
+	if (!line || line[(*i) - 1] == '\0' || (*i) - 1 == *len)
+	{
+		if (line && line[(*i) - 1] == '\0' && (*i) - 1 == *len)
+			ft_printf("%s\n", line);
+		else
+		{
+			write(2, "error\n", 7);
+			sleep(5);
+		}
+		(*i) = 0;
+		(*len) = 0;
+		free(line);
+	}
+	else
+	{
+		(*i)++;
 	}
 	return (0);
 }

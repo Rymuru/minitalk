@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:15:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/16 03:23:06 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/18 10:25:59 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@
 # define MIX_PID 4194304
 
 /*SERVER*/
-size_t		ft_strlcpy(char *dest, const char *src, size_t size);
 void		ft_handler(int signo);
 char		reconstruct(char c, int char_size);
 int			add_len(int n, int char_size);
 int			find_len(int *i, int *len, int *char_size, char **line);
 int			endchar(char *line, char *c, int *i, int *len);
+int			ft_isprint(int c);
 
 /*CLIENT*/
 long int	ft_atoi(char *str);
