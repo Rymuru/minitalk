@@ -6,7 +6,7 @@
 /*   By: bcoenon <bcoenon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:14:49 by bcoenon           #+#    #+#             */
-/*   Updated: 2022/10/28 18:19:12 by bcoenon          ###   ########.fr       */
+/*   Updated: 2022/10/30 18:02:49 by bcoenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,24 +101,26 @@ int	endchar(char *line, char *c, int *i, int *len)
 {
 	if (ft_isprint(*c) == 0)
 		(*i) = (*len) + 1;
-	line[(*i) - 1] = (*c);
+	if (line)
+		line[(*i) - 1] = (*c);
 	(*c) = 0;
-	if (!line || line[(*i) - 1] == '\0' || (*i) - 1 == *len)
+	if (!line || (*i) - 1 == *len || line[(*i) - 1] == '\0' )
 	{
 		if (line && line[(*i) - 1] == '\0' && (*i) - 1 == *len)
+		{
 			ft_printf("%s\n", line);
+			free(line);
+		}
 		else
 		{
+			free(line);
 			write(2, "error\n", 7);
 			sleep(5);
 		}
 		(*i) = 0;
 		(*len) = 0;
-		free(line);
 	}
 	else
-	{
 		(*i)++;
-	}
 	return (0);
 }
